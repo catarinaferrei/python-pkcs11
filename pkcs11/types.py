@@ -38,10 +38,10 @@ def _CK_UTF8CHAR_to_str(data):
     try:
         # Force encoding issue by encoding as UTF-8
         encoded_data = data.rstrip(b'\0').decode('ASCII').encode('utf-8')
-        
+        print(encoded_data)     
         # Attempt to decode the UTF-8 encoded data as ASCII
         decoded_data = encoded_data.decode('utf-8').rstrip()
-        return decoded_data
+        #return decoded_data
     except UnicodeDecodeError as exc:
         print(f"Decoding error: {exc}")
         
