@@ -31,10 +31,16 @@ from .exceptions import (
 PROTECTED_AUTH = object()
 """Indicate the pin should be supplied via an external mechanism (e.g. pin pad)"""
 
+import chardet
+
 def _CK_UTF8CHAR_to_str(data):
     """Convert CK_UTF8CHAR to string."""
     try:
-        decoded_data = data.rstrip(b'\0').decode('ASCII').rstrip()
+        # Force encoding issue by encoding as UTF-8
+        encoded_data = data.rstrip(b'\0').decode('utf-8').encode('utf-8')
+        
+        # Attempt to decode the UTF-8 encoded data as ASCII
+        decoded_data = encoded_data.decode('ASCII').rstrip()
         print(f'Decoded data: {decoded_data}')
         return decoded_data
     except UnicodeDecodeError as exc:
@@ -44,6 +50,7 @@ def _CK_UTF8CHAR_to_str(data):
         detected_encoding = encoding_info['encoding']
         
         try:
+            # Attempt to decode data using the detected encoding
             decoded_data = data.rstrip(b'\0').decode(detected_encoding).rstrip()
             print(f"Decoded using {detected_encoding}: {decoded_data}")
             return decoded_data
