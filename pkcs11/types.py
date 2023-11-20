@@ -34,7 +34,9 @@ PROTECTED_AUTH = object()
 def _CK_UTF8CHAR_to_str(data):
     """Convert CK_UTF8CHAR to string."""
     try:
-        return data.rstrip(b'\0').decode('utf-8').rstrip()
+        decoded_data = data.rstrip(b'\0').decode('utf-8').rstrip()
+        print(f'Decoded data: {decoded_data}')
+        return decoded_data
     except UnicodeDecodeError as exc:
         print(f"Decoding error: {exc}")
         
