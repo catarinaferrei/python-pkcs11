@@ -1651,7 +1651,8 @@ cdef class lib:
                 Slot(self, slot_id, slotDescription, manufacturerID,
                      info.hardwareVersion, info.firmwareVersion, info.flags)
             )
-
+            
+        print("TESTING DECODING FIX")
         return slots
 
 
